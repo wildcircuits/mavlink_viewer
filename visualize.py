@@ -63,7 +63,7 @@ def make_fig(rows):
                           height=600)
         return fig
 
-    df = rows[-1000:]  # limit to last 1000 points for performance
+    df = rows[-3000:]  # limit to last 1000 points for performance
 
     fig = px.scatter(df, x="lon", y="lat", color="WaterDist",
                      color_continuous_scale="Viridis",
