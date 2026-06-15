@@ -1,6 +1,6 @@
-# MAVLink WaterDist Capture
+# MAVLink Viewer
 
-Capture MAVLink data from QGroundControl and log WaterDist sensor readings with GPS coordinates with ```capture.py```.  Visualize incoming waterdist data in realtime with ```visualize.py```.
+These scripts were writtent to interperet data being sent from an Unmanned Surface Vessel (USV) using a Pixhawk flight controller running ardupilot.  The USV has an RPi Pico sending 'NAMED_VALUE_FLOAT' data through Serial 5 in the MAVlink format.  This data ends up included as data across the telemetry link from the USV to Ground Controll Station (GCS).  We are using QGroundControl as the GCS and it is setup with the default port to share MAVlink data as network traffic.  With those systems in place, the software in this repo can capture MAVLink data from QGroundControl and log the readings with GPS coordinates using ```capture.py```.  You can visualize the data in realtime with ```visualize.py```.  Both scripts should be run at the same time in separate terminals.  The current configuration is setup to send water depth measurements from a sonar distance sensor under the name 'WaterDist'.
 
 ## Creativity on the Canal June 13th, 2026 data
 Included is a .csv file of the data captured during the creativity on the canal festival in Brockport, NY.
