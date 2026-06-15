@@ -30,7 +30,7 @@ def get_latest_csv():
     return sorted(files)[-1]
 
 
-def read_csv(filepath):
+def read_csv(filepath, min_dist):
     """Read CSV and return list of dicts with numeric lat/lon."""
     rows = []
     with open(filepath, "r") as f:
@@ -42,13 +42,14 @@ def read_csv(filepath):
                 wd = float(row["WaterDist"])
             except (ValueError, KeyError):
                 wd = None
-            if lat is not None and lon is not None and wd is not None:
+            if lat is not None and lon is not None and wd is not None and wd > min_dist:
                 rows.append({
                     "lat": lat,
                     "lon": lon,
                     "WaterDist": wd,
                     "timestamp": row["timestamp"],
                 })
+    print(f'read CSV and found {len(rows)} number of point above min distance level of {min_dist}')
     return rows
 
 
@@ -63,7 +64,7 @@ def make_fig(rows):
                           height=600)
         return fig
 
-    df = rows[-3000:]  # limit to last 1000 points for performance
+    df = rows[-2000:]  # limit to last 1000 points for performance
 
     fig = px.scatter(df, x="lon", y="lat", color="WaterDist",
                      color_continuous_scale="Viridis",
@@ -91,7 +92,7 @@ def make_summary_fig(rows):
         return fig
 
     wd_values = [r["WaterDist"] for r in rows]
-    fig = go.Figure(data=go.Histogram(x=wd_values, nbinsx=30,
+    fig = go.Figure(data=go.Histogram(x=wd_values, nbinsx=100,
                                        marker_color="steelblue"))
     fig.update_layout(
         title="WaterDist Distribution",
@@ -152,7 +153,7 @@ def update(n):
             "",
         )
 
-    rows = read_csv(csv_file)
+    rows = read_csv(csv_file, min_dist=100)
     now = datetime.now().strftime("%H:%M:%S")
 
     fig_scatter = make_fig(rows)

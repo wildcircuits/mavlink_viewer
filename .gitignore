@@ -1,2 +1,5 @@
-.csv
+*.csv
+*.ods
 .venv
+
+!waterdist_capture_20260613_142502.csv

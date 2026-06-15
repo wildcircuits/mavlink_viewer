@@ -1,10 +1,16 @@
 # MAVLink WaterDist Capture
 
-Capture MAVLink data from QGroundControl and log WaterDist sensor readings with GPS coordinates.
+Capture MAVLink data from QGroundControl and log WaterDist sensor readings with GPS coordinates with ```capture.py```.  Visualize incoming waterdist data in realtime with ```visualize.py```.
+
+## Creativity on the Canal June 13th, 2026 data
+Included is a .csv file of the data captured during the creativity on the canal festival in Brockport, NY.
+
+![alt text](images/screencap.png)
 
 ## Setup
 
 ```bash
+python3 -m venv .venv
 source .venv/bin/activate
 pip install pymavlink dash numpy
 ```
